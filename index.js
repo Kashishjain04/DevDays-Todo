@@ -57,7 +57,6 @@ db.once("open", () => {
         break;
 
       default: {
-        // console.log("Error Triggering Pusher");
         flag = false;
       }
     }
