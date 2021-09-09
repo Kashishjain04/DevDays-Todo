@@ -15,7 +15,7 @@ app.use(cors());
 
 // configure pusher
 const pusher = new Pusher({
-  appId: process.env.PUSHER_APPID,
+  appId: process.env.PUSHER_APP_ID,
   key: process.env.PUSHER_KEY,
   secret: process.env.PUSHER_SECRET,
   cluster: "ap2",
@@ -51,23 +51,17 @@ db.once("open", () => {
       case "update":
         channel = "updated";
         break;
-
       case "delete":
         channel = "deleted";
         break;
-
-      default: {
+      default:
         flag = false;
-      }
+        break;
     }
     flag &&
-      pusher
-        .trigger("todos", channel, {
-          todoDetails,
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
+      pusher.trigger("todos", channel, {}).catch((err) => {
+        console.log(err);
+      });
   });
 });
 
