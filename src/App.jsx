@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddTodo from "./components/AddTodo/AddTodo";
 import ShowTodo from "./components/ShowTodo/ShowTodo";
-import { pusherTodo, setTodo, selectTodos } from "./redux/todos/todoSlice";
+import { setTodo, selectTodos } from "./redux/todos/todoSlice";
 import todoActions from "./redux/todos/actions";
 import "./App.css";
 import Pusher from "pusher-js";
@@ -31,7 +31,8 @@ function App() {
 
   useEffect(() => {
     channel.bind("inserted", ({ todoDetails }) => {
-      dispatch(pusherTodo(todoDetails));
+      // dispatch(pusherTodo(todoDetails));
+      fetchTodos();
     });
     channel.bind("updated", () => {
       fetchTodos();
